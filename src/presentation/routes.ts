@@ -1,10 +1,6 @@
 import { Router } from 'express';
 
-
-
-
 export class AppRoutes {
-
 
   static get routes(): Router {
 
@@ -13,11 +9,8 @@ export class AppRoutes {
     // Definir las rutas
     // router.use('/api/todos', /*TodoRoutes.routes */ );
 
-
-
     return router;
   }
-
 
 }
 

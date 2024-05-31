@@ -7,7 +7,6 @@ interface Options {
   public_path?: string;
 }
 
-
 export class Server {
 
   public readonly app = express();
@@ -22,12 +21,9 @@ export class Server {
     this.publicPath = public_path;
     this.routes = routes;
   }
-
-  
   
   async start() {
     
-
     //* Middlewares
     this.app.use( express.json() ); // raw
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
