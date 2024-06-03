@@ -17,6 +17,9 @@ export class FileUploadController {
     }
 
     uploadFile = async(req: Request, res: Response) => {
+
+        console.log(req.files);
+
         res.json('uploadFile');
     }
 
