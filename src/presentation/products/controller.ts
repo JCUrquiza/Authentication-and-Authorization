@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
-import { CreateCategoryDto, CustomError, PaginationDto } from '../../domain';
-import { CategoryService } from '../services/category.service';
+import { CreateProductDto, CustomError, PaginationDto } from '../../domain';
+import { ProductService } from '../services';
 
 export class ProductController {
 
     constructor(
-        // TODO: private readonly productService: ProductService,
+        private readonly productService: ProductService,
     ) {}
 
     private handleError = (error: unknown, res: Response) => {
@@ -18,17 +18,22 @@ export class ProductController {
     }
 
     createProduct = async(req: Request, res: Response) => {
+        const [error, createProductDto] = CreateProductDto.create(req.body);
+        if ( error ) return res.status(400).json({ error });
         
-        return res.json('Create Product');
-    }
+        this.productService.createProduct( createProductDto! )
+            .then( category => res.status(201).json( category ) )
+            .catch( error => this.handleError( error, res ));
+    };
 
     getProducts = async(req: Request, res: Response) => {
-
         const { page = 1, limit = 10 } = req.query;
         const [error, paginationDto] = PaginationDto.create( +page, +limit );
         if ( error ) return res.status(400).json({ error });
 
-        return res.json('Get Product');
+        this.productService.getProducts(paginationDto!)
+            .then( products => res.json(products) )
+            .catch( error => this.handleError( error, res ) );
     }
 
 }
