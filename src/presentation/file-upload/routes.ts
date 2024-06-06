@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { FileUploadController } from './controller';
 import { FileUploadService } from '../services';
 import { FileUploadMiddleware } from '../middlewares/file-upload.middleware';
+import { TypeMiddleware } from '../middlewares/type.middleware';
 
 export class FileUploadRoutes {
 
@@ -12,6 +13,7 @@ export class FileUploadRoutes {
     
     // Aplicar middlewares a todas las rutas (2)
     router.use( FileUploadMiddleware.containFiles );
+    router.use( TypeMiddleware.validTypes(['users', 'products', 'categories']));
     // Definir las rutas
     // api/upload/single/<user|category|product>/
     // api/upload/multiple/<user|category|product>/
